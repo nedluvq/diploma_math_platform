@@ -4,7 +4,7 @@ import { useAchievements } from '../../hooks/useAchievements';
 
 const Final: React.FC = () => {
     const { achievements, earnAchievement } = useAchievements();
-    const [showAchievement, setShowAchievement] = useState(false);
+    const [_, setShowAchievement] = useState(false);
     const [hasShownAchievement, setHasShownAchievement] = useState(false);
 
 useEffect(() => {

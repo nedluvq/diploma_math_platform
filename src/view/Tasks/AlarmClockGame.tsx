@@ -29,12 +29,12 @@ const AlarmClockGame: React.FC = () => {
 
   const [isSolved, setIsSolved] = useState(false);
   const [showExpNotification, setShowExpNotification] = useState(false);
-
+//@ts-ignore
   const handleHourChange = (e: Event, newValue: number | number[]) => {
     setHourAngle(newValue as number);
     setResult('');
   };
-
+//@ts-ignore
   const handleMinuteChange = (e: Event, newValue: number | number[]) => {
     setMinuteAngle(newValue as number);
     setResult('');

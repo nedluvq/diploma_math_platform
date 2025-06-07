@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Typography,
@@ -11,7 +10,6 @@ import {
   ListItemText,
   Button,
   Chip,
-  Divider,
   LinearProgress,
   Tooltip
 } from '@mui/material';
@@ -97,7 +95,12 @@ const sessionData = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
-const CircularProgressWithLabel = ({ value, size = 100 }) => {
+type CircularProgressWithLabelProps = {
+  value: number;
+  size?: number;
+};
+
+const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ value, size = 100 }) => {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex', mb: 1 }}>
       <Box sx={{
@@ -305,7 +308,7 @@ const UserMetricsDashboard = () => {
                     dataKey="value"
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
-                    {sessionData.map((entry, index) => (
+                    {sessionData.map((_entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>

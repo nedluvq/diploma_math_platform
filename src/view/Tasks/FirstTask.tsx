@@ -11,7 +11,6 @@ import {
   TableRow,
   Chip,
   Button,
-  Grid,
   Container,
   Avatar,
   TableContainer,
@@ -20,11 +19,18 @@ import {
   AlertTitle,
   styled
 } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const StyledTableCell = styled(TableCell)(({ theme, error }) => ({
+interface StyledTableCellProps {
+  error?: boolean;
+}
+
+const StyledTableCell = styled(TableCell, {
+  shouldForwardProp: (prop) => prop !== 'error'
+})<StyledTableCellProps>(({ theme, error }) => ({
   border: `1px solid ${error ? theme.palette.error.main : theme.palette.divider}`,
   backgroundColor: error 
     ? theme.palette.error.light 
@@ -200,6 +206,7 @@ const FirstTask: React.FC = () => {
           onDragOver={handleDragOver}
         >
           {availableNumbers.map(num => (
+            //@ts-ignore
             <Grid item key={num}>
               <DraggableChip
                 avatar={<Avatar><DragHandleIcon /></Avatar>}
