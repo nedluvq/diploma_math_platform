@@ -1,0 +1,26 @@
+.image {
+    width: 77px;
+    height: 77px;
+}
+
+.wrapper {
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+
+    width: 70vh;
+    gap: 100px;
+}
+
+.wrapperCurrent {
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+
+    width: 70vh;
+    gap: 100px;
+
+    background-color: #DBF5E3;
+}
