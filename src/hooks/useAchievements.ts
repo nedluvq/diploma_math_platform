@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Achievement, AchievementsMap } from '../types/achievements';
+import { AchievementsMap } from '../types/achievements';
 
 const ACHIEVEMENTS_KEY = 'user_achievements';
 

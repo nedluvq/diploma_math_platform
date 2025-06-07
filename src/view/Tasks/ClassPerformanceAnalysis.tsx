@@ -18,7 +18,6 @@ import {
   AccordionDetails,
   Avatar,
   Chip,
-  Slide,
   Fade
 } from '@mui/material';
 import {

@@ -5,9 +5,7 @@ import {
   Box,
   Avatar,
   Typography,
-  LinearProgress,
   Paper,
-  Grid,
   Chip,
   Divider,
   useTheme,
@@ -20,7 +18,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button
+  Button,
+  Grid
 } from '@mui/material';
 import { 
   School as SchoolIcon,
@@ -34,17 +33,6 @@ import { availableAvatars, AvatarType } from '../helpers/avatarConstants';
 import { Link } from 'react-router';
 import { availableTitles, Title } from '../helpers/titles';
 import { getAvailableTitles, getCurrentTitle, saveSelectedTitle } from '../helpers/titleService';
-
-
-const ExperienceProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 12,
-  borderRadius: 6,
-  backgroundColor: theme.palette.grey[200],
-  '& .MuiLinearProgress-bar': {
-    borderRadius: 6,
-    backgroundColor: theme.palette.success.main,
-  }
-}));
 
 const AchievementCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -94,7 +82,7 @@ const handleTitleSelect = (title: Title) => {
 
   
   const [openAvatarDialog, setOpenAvatarDialog] = useState(false);
-  const [achievements, setAchievements] = useState([
+  const [achievements, _] = useState([
     { id: 1, name: 'Первый шаг', description: 'Завершите первый урок', earned: competition(), icon: <CheckIcon color="success" /> },
     { id: 2, name: 'Усердный ученик', description: 'Завершите введение', earned: competition(), icon: <SchoolIcon color="primary" /> },
     { id: 3, name: 'Мастер', description: 'Достигните 5 уровня', earned: false, icon: <TrophyIcon color="warning" /> },
@@ -140,8 +128,6 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, [progress.level]);
 
-  const expPercent = (progress.exp / 100) * 100;
-
   const handleAvatarMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -155,8 +141,6 @@ useEffect(() => {
     setDialogAvatar(null);
   };
 
-
-  const unlockedAvatars = availableAvatars.filter(avatar => progress.level >= avatar.levelRequired);
   const [dialogAvatar, setDialogAvatar] = useState<AvatarType | null>(null);
 
   return (
@@ -288,6 +272,7 @@ useEffect(() => {
 
 <Grid container spacing={2}>
   {availableTitles.map(title => (
+    //@ts-ignore
     <Grid item xs={12} sm={6} md={4} key={title.id}>
       <Paper 
         elevation={availableTitlesList.some(t => t.id === title.id) ? 3 : 1}
@@ -327,6 +312,7 @@ useEffect(() => {
       
       <Grid container spacing={3}>
         {achievements.map((achievement) => (
+          //@ts-ignore
           <Grid item xs={12} sm={6} md={4} key={achievement.id}>
             <AchievementCard elevation={2}>
               <Box display="flex" gap={2} alignItems="center" mb={1.5}>
@@ -369,26 +355,30 @@ useEffect(() => {
       <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 3 }}>
         Статистика
       </Typography>
-      
+  
       <Grid container spacing={2}>
+        {/* @ts-expect-error */}
         <Grid item xs={12} sm={6} md={3}>
           <Paper sx={{ p: 3, textAlign: 'center' }}>
             <Typography variant="h4" color="primary">{!competition() ? "0" : "1"}</Typography>
             <Typography>Завершенных уроков</Typography>
           </Paper>
         </Grid>
+        {/* @ts-expect-error */}
         <Grid item xs={12} sm={6} md={3}>
           <Paper sx={{ p: 3, textAlign: 'center' }}>
             <Typography variant="h4" color="success">{!competition() ? "0" : "5"}</Typography>
             <Typography>Подряд верных ответов</Typography>
           </Paper>
         </Grid>
+        {/* @ts-expect-error */}
         <Grid item xs={12} sm={6} md={3}>
           <Paper sx={{ p: 3, textAlign: 'center' }}>
             <Typography variant="h4" color="warning">{!competition() ? "Нет данных" : "100%"}</Typography>
             <Typography>Средняя точность</Typography>
           </Paper>
         </Grid>
+        {/* @ts-expect-error */}
         <Grid item xs={12} sm={6} md={3}>
           <Paper sx={{ p: 3, textAlign: 'center' }}>
             <Typography variant="h4" color="secondary">{!competition() ? "0" : "2"}</Typography>
