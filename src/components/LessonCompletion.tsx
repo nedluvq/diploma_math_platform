@@ -1,8 +1,10 @@
-import React from 'react';
-import { Box, Typography, Button, Avatar, LinearProgress, Paper, Container } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Button, Avatar, LinearProgress, Paper, Container, useTheme } from '@mui/material';
 import { CheckCircle, ArrowForward } from '@mui/icons-material';
 import avatarUrl from '../assets/avatar.png';
 import { Link } from 'react-router';
+import { availableAvatars, AvatarType } from '../helpers/avatarConstants';
+import { getSelectedAvatarId } from '../helpers/avatarService';
 
 interface LessonCompletionProps {
   userName: string;
@@ -28,6 +30,11 @@ const LessonCompletion: React.FC<LessonCompletionProps> = ({
   onContinue
 }) => {
   const progressValue = (currentExp / expToNextLevel) * 100;
+  const [selectedAvatar, setSelectedAvatar] = useState<AvatarType>(() => {
+  const savedAvatarId = getSelectedAvatarId();
+  return availableAvatars.find(avatar => avatar.id === savedAvatarId) || availableAvatars[0];
+});
+const theme = useTheme();
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
@@ -43,9 +50,14 @@ const LessonCompletion: React.FC<LessonCompletionProps> = ({
 
           <Box display="flex" alignItems="center" gap={2} sx={{ mt: 2 }}>
             <Avatar
-              src={avatarUrl}
-              alt={userName}
-              sx={{ width: 64, height: 64, border: '3px solid #4caf50' }}
+              src={selectedAvatar.src}
+              alt={selectedAvatar.alt}
+              sx={{ 
+                width: 120, 
+                height: 120,
+                border: `4px solid ${theme.palette.primary.main}`,
+                cursor: 'pointer'
+              }}
             />
             <Box>
               <Typography variant="body1">{userName}</Typography>
